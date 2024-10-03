@@ -6,12 +6,12 @@
 </p>
 <br>
 <p align="center">
-  <img src="https://img.shields.io/github/contributors/Developers-of-Debilos-Empire/FileSorter?style=for-the-badge"/>
-  <img src="https://img.shields.io/github/forks/Developers-of-Debilos-Empire/FileSorter?style=for-the-badge"/>
-  <img src="https://img.shields.io/github/stars/Developers-of-Debilos-Empire/FileSorter?style=for-the-badge"/>
-  <img src="https://img.shields.io/github/issues/Developers-of-Debilos-Empire/FileSorter?style=for-the-badge"/>
-  <img src="https://img.shields.io/github/license/Developers-of-Debilos-Empire/FileSorter?style=for-the-badge"/>
-  <img src="https://img.shields.io/github/commit-activity/m/Developers-of-Debilos-Empire/FileSorter?style=for-the-badge"/>
+  <img src="https://img.shields.io/github/contributors/OctoBanon-Main/FileSorter?style=for-the-badge"/>
+  <img src="https://img.shields.io/github/forks/OctoBanon-Main/FileSorter?style=for-the-badge"/>
+  <img src="https://img.shields.io/github/stars/OctoBanon-Main/FileSorter?style=for-the-badge"/>
+  <img src="https://img.shields.io/github/issues/OctoBanon-Main/FileSorter?style=for-the-badge"/>
+  <img src="https://img.shields.io/github/license/OctoBanon-Main/FileSorter?style=for-the-badge"/>
+  <img src="https://img.shields.io/github/commit-activity/m/OctoBanon-Main/FileSorter?style=for-the-badge"/>
 </p>
 <br />
 
