@@ -38,7 +38,7 @@ To be written
 - **UkrainianVader** - Original author (Python version)
 - **corruptmemry** - Second author (Python version)
 - **xterdd** - Added more file extensions (Python version)
-- **coffee100percnt** - Fix grammar in old README (Python version)
+- **coffee100percnt** - Grammar and syntax correction in old README (Python version)
 
 ## License
 
