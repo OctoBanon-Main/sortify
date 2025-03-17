@@ -1,8 +1,22 @@
 [package]
-name = "FileSorter"
-version = "0.1.0"
-edition = "2021"
+name = "sortify"
+description = "A lightweight and fast utility for organizing your files efficiently."
+authors = ["Maksim Bengraf <me@octobanon.com>"]
+homepage = "https://github.com/OctoBanon-Main/sortify"
+repository = "https://github.com/OctoBanon-Main/sortify.git"
+license = "MIT"
+readme = "README.md"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+version = "0.1.0"
+edition = "2024"
+
+[package.metadata.original_authors]
+contributors = [
+    { name = "UkrainianVader", role = "Original author (Python version)" },
+    { name = "corruptmemry", role = "Second author (Python version)" },
+    { name = "xterdd", role = "Added more file extensions (Python version)" },
+    { name = "coffee100percnt", role = "Grammar and syntax correction in old README (Python version)" }
+]
 
 [dependencies]
+anyhow = "1.0.97"
