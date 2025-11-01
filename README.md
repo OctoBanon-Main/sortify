@@ -33,12 +33,15 @@ The compiled executable will be available in the `/target/release/` directory.
 
 To be written
 
-## Original contributors
+## Original contributors (Legacy version)
 
-- **UkrainianVader** - Original author (Python version)
-- **corruptmemry** - Second author (Python version)
-- **xterdd** - Added more file extensions (Python version)
-- **coffee100percnt** - Grammar and syntax correction in old README (Python version)
+| Name  | Contribution |
+|-------|-----------------|
+| **UkrainianVader**  | Original author |
+| **corruptmemry** | Second author      |
+| **xterdd** | Added more file extensions |
+| **coffee100percnt**  | Grammar and syntax correction in old README |
+
 
 ## License
 
