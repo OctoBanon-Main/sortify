@@ -45,9 +45,8 @@ To be written
 
 ## License
 
-This project was originally licensed under the GPL-3.0 License in the `legacy/python` branch, but has since been re-licensed under the MIT License for the new Rust-based version..
+This project was originally licensed under GPL-3.0 (see the `legacy/python` branch),
+but has been **re-licensed under MIT** for the new Rust-based version.
 
-For more details, please see the LICENSE file in each respective branch:
-
-- [GPL-3.0 License in `legacy/python` branch](https://github.com/OctoBanon-Main/sortify/blob/legacy/python/LICENSE)
-- [MIT License in `main` branch](https://github.com/OctoBanon-Main/sortify/blob/main/LICENSE)
+- GPL-3.0 License - [legacy/python](https://github.com/OctoBanon-Main/sortify/blob/legacy/python/LICENSE)
+- MIT License - [main](https://github.com/OctoBanon-Main/sortify/blob/main/LICENSE)
