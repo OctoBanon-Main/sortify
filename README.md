@@ -1,4 +1,4 @@
-# Sortify (ex. FileSorter)
+# Sortify (formerly FileSorter)
 
 **A lightweight and fast utility for organizing your files efficiently.**
 
