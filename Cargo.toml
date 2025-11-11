@@ -1,0 +1,24 @@
+[package]
+name = "sortify"
+version = "0.1.0"
+edition = "2024"
+description = "A lightweight and fast utility for organizing your files efficiently."
+license = "MIT"
+repository = "https://github.com/OctoBanon-Main/sortify.git"
+authors = ["Maksim Bengraf <me@octobanon.com>"]
+
+
+[package.metadata.original_authors]
+contributors = [
+    { name = "UkrainianVader", role = "Original author (Python version)" },
+    { name = "corruptmemry", role = "Second author (Python version)" },
+    { name = "xterdd", role = "Added more file extensions (Python version)" },
+    { name = "coffee100percnt", role = "Grammar and syntax correction in old README (Python version)" }
+]
+
+[dependencies]
+anyhow = "1.0.100"
+clap = { version = "4.5.51", features = ["derive"] }
+dialoguer = "0.12.0"
+colored = "3.0.0"
+indicatif = "0.18.3"
