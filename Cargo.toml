@@ -1,6 +1,6 @@
 [package]
 name = "sortify"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 description = "A lightweight and fast utility for organizing your files efficiently."
 license = "MIT"
