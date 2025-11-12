@@ -1,0 +1,94 @@
+name: Build Sortify Binaries
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            platform: macos
+            arch: x86_64
+            bin: sortify
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            platform: macos
+            arch: arm64
+            bin: sortify
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            platform: linux
+            arch: x86_64
+            bin: sortify
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            platform: windows
+            arch: x86_64
+            bin: sortify.exe
+
+    name: Build ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: ${{ matrix.target }}
+          override: true
+
+      - name: Install OpenSSL (Linux)
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pkg-config libssl-dev
+
+      - name: Install OpenSSL (macOS)
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          brew update
+          brew install openssl@3
+          echo "OPENSSL_DIR=$(brew --prefix openssl@3)" >> $GITHUB_ENV
+          echo "PKG_CONFIG_PATH=$(brew --prefix openssl@3)/lib/pkgconfig" >> $GITHUB_ENV
+
+      - name: Install OpenSSL (Windows)
+        if: startsWith(matrix.os, 'windows')
+        run: |
+          choco install openssl --no-progress
+          echo "OPENSSL_DIR=C:\Program Files\OpenSSL-Win64" >> $env:GITHUB_ENV
+          echo "OPENSSL_INCLUDE_DIR=C:\Program Files\OpenSSL-Win64\include" >> $env:GITHUB_ENV
+          echo "OPENSSL_LIB_DIR=C:\Program Files\OpenSSL-Win64\lib" >> $env:GITHUB_ENV
+
+      - name: Build release binary
+        run: cargo build --release --target ${{ matrix.target }}
+
+      - name: Rename artifact with version and platform
+        shell: bash
+        run: |
+          version="${GITHUB_REF_NAME}"
+          bin="${{ matrix.bin }}"
+          base="${bin%.*}"
+          ext="${bin##*.}"
+          mkdir -p artifacts
+
+          if [[ "$bin" == *.* ]]; then
+            cp "target/${{ matrix.target }}/release/$bin" \
+               "artifacts/${base}-${version}-${{ matrix.platform }}-${{ matrix.arch }}.${ext}"
+          else
+            cp "target/${{ matrix.target }}/release/$bin" \
+               "artifacts/${base}-${version}-${{ matrix.platform }}-${{ matrix.arch }}"
+          fi
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sortify-${{ github.ref_name }}-${{ matrix.platform }}-${{ matrix.arch }}
+          path: artifacts/
