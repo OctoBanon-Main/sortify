@@ -30,11 +30,6 @@ jobs:
             platform: linux
             arch: x86_64-musl
             bin: sortify
-          - os: ubuntu-latest
-            target: aarch64-unknown-linux-musl
-            platform: linux
-            arch: arm64-musl
-            bin: sortify
           - os: windows-latest
             target: x86_64-pc-windows-msvc
             platform: windows
