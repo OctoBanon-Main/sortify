@@ -25,21 +25,6 @@ jobs:
             platform: linux
             arch: x86_64
             bin: sortify
-          - os: ubuntu-latest
-            target: aarch64-unknown-linux-gnu
-            platform: linux
-            arch: arm64
-            bin: sortify
-          - os: ubuntu-latest
-            target: x86_64-unknown-linux-musl
-            platform: linux
-            arch: x86_64-musl
-            bin: sortify
-          - os: ubuntu-latest
-            target: aarch64-unknown-linux-musl
-            platform: linux
-            arch: arm64-musl
-            bin: sortify
           - os: windows-latest
             target: x86_64-pc-windows-msvc
             platform: windows
@@ -64,38 +49,7 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu')
         run: |
           sudo apt-get update
-          sudo apt-get install -y pkg-config libssl-dev curl build-essential
-
-          if [[ "${{ matrix.target }}" == *musl* ]]; then
-            sudo apt-get install -y musl-tools
-            mkdir -p /tmp/openssl-musl && cd /tmp/openssl-musl
-
-            OPENSSL_VERSION=1.1.1w
-            curl -sSL https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz | tar xz
-            cd openssl-${OPENSSL_VERSION}
-
-            if [[ "${{ matrix.target }}" == "x86_64-unknown-linux-musl" ]]; then
-              export CC=musl-gcc
-              ./Configure no-shared no-dso no-async no-tests linux-x86_64 -static --prefix=/opt/openssl-musl
-            else
-              sudo apt-get install -y gcc-aarch64-linux-gnu
-              export CC=aarch64-linux-gnu-gcc
-              ./Configure no-shared no-dso no-async no-tests linux-aarch64 -static --prefix=/opt/openssl-musl
-            fi
-
-            make -j$(nproc)
-            sudo make install_sw
-
-            echo "OPENSSL_DIR=/opt/openssl-musl" >> $GITHUB_ENV
-            echo "OPENSSL_INCLUDE_DIR=/opt/openssl-musl/include" >> $GITHUB_ENV
-            echo "OPENSSL_LIB_DIR=/opt/openssl-musl/lib" >> $GITHUB_ENV
-            echo "OPENSSL_STATIC=1" >> $GITHUB_ENV
-          fi
-
-          if [[ "${{ matrix.target }}" == "aarch64-unknown-linux-gnu" ]]; then
-            sudo apt-get install -y gcc-aarch64-linux-gnu
-            echo "CC_aarch64_unknown_linux_gnu=aarch64-linux-gnu-gcc" >> $GITHUB_ENV
-          fi
+          sudo apt-get install -y pkg-config libssl-dev
 
       - name: Install OpenSSL (macOS)
         if: startsWith(matrix.os, 'macos')
