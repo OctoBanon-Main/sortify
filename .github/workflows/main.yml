@@ -70,11 +70,21 @@ jobs:
         run: cargo build --release --target ${{ matrix.target }}
 
       - name: Rename artifact with version and platform
+        shell: bash
         run: |
-          version=${GITHUB_REF_NAME}
-          mkdir artifacts
-          cp target/${{ matrix.target }}/release/${{ matrix.bin }} \
-             artifacts/${{ matrix.bin%%.* }}-${version}-${{ matrix.platform }}-${{ matrix.arch }}${{ matrix.bin##*.:+.${matrix.bin##*.} }}
+          version="${GITHUB_REF_NAME}"
+          bin="${{ matrix.bin }}"
+          base="${bin%.*}"
+          ext="${bin##*.}"
+          mkdir -p artifacts
+
+          if [[ "$bin" == *.* ]]; then
+            cp "target/${{ matrix.target }}/release/$bin" \
+               "artifacts/${base}-${version}-${{ matrix.platform }}-${{ matrix.arch }}.${ext}"
+          else
+            cp "target/${{ matrix.target }}/release/$bin" \
+               "artifacts/${base}-${version}-${{ matrix.platform }}-${{ matrix.arch }}"
+          fi
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
