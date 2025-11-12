@@ -10,4 +10,8 @@ pub struct Args {
     /// Dry run (do not actually move any files)
     #[arg(long)]
     pub dry_run: bool,
+
+    /// Skip checking for updates on startup
+    #[arg(long)]
+    pub no_check_updates: bool,
 }

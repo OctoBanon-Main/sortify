@@ -3,6 +3,7 @@ mod detect;
 mod classify;
 mod ops;
 mod prompt;
+mod updater;
 
 use anyhow::{Context, Result};
 use clap::Parser;
@@ -16,6 +17,7 @@ use crate::detect::{is_binary, resolve_extension};
 use crate::classify::Category;
 use crate::ops::move_to_category;
 use crate::prompt::{BinaryAction, BinaryPolicy};
+use crate::updater::check_for_updates;
 
 struct ProcessingResult {
     moved: Vec<(String, String)>,
@@ -86,7 +88,7 @@ fn process_file(
 
     let res = resolve_extension(&entry, args.ext_only, args.dry_run)?;
     let ext_opt = res.ext;
-    
+
     if let Some((sig, real)) = res.mismatch {
         result.warnings.push(format!(
             "Signature/ext mismatch: {} (sig: .{}, ext: .{})",
@@ -106,7 +108,9 @@ fn process_file(
 
     if !args.ext_only && is_binary(&entry)? {
         if args.dry_run {
-            result.warnings.push(format!("Binary file detected: {}", entry.display()));
+            result
+                .warnings
+                .push(format!("Binary file detected: {}", entry.display()));
             result.skipped.push(entry.display().to_string());
             return Ok(());
         }
@@ -124,7 +128,9 @@ fn process_file(
     move_to_category(&entry, cwd, &category, args.dry_run)
         .with_context(|| format!("failed to move {}", entry.display()))?;
 
-    result.moved.push((entry.display().to_string(), category.dir_name().to_string()));
+    result
+        .moved
+        .push((entry.display().to_string(), category.dir_name().to_string()));
     Ok(())
 }
 
@@ -192,11 +198,16 @@ fn print_summary(result: &ProcessingResult, is_dry_run: bool) {
 
 fn main() -> Result<()> {
     print_banner();
+
     let args = Args::parse();
+
+    if !args.no_check_updates {
+        check_for_updates()?;
+    }
 
     let cwd = std::env::current_dir().context("cannot get current directory")?;
     let current_exe = std::env::current_exe().ok().and_then(|p| fs::canonicalize(p).ok());
-    
+
     let entries = collect_files(&cwd)?;
 
     if entries.is_empty() {
