@@ -14,4 +14,8 @@ pub struct Args {
     /// Skip checking for updates on startup
     #[arg(long)]
     pub no_check_updates: bool,
+
+    /// Enable the pre-release update channel
+    #[arg(long)]
+    pub prerelease_channel: bool,
 }

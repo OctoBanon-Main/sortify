@@ -202,7 +202,7 @@ fn main() -> Result<()> {
     let args = Args::parse();
 
     if !args.no_check_updates {
-        check_for_updates()?;
+        check_for_updates(args.prerelease_channel)?;
     }
 
     let cwd = std::env::current_dir().context("cannot get current directory")?;
