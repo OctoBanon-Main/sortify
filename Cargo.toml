@@ -1,6 +1,6 @@
 [package]
 name = "sortify"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 description = "A lightweight and fast utility for organizing your files efficiently."
 license = "MIT"
@@ -22,3 +22,6 @@ clap = { version = "4.5.51", features = ["derive"] }
 dialoguer = "0.12.0"
 colored = "3.0.0"
 indicatif = "0.18.3"
+semver = "1.0.27"
+reqwest = { version = "0.12.24", features = ["json", "blocking"] }
+serde = "1.0.228"
